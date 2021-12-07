@@ -3,8 +3,10 @@ import 'package:practice_app_crud/providers/vocabs.dart';
 import '../providers/vocab.dart';
 import 'package:provider/provider.dart';
 
+import 'vocab_item.dart';
+
 class VocabList extends StatefulWidget {
-  const VocabList({Key? key}) : super(key: key);
+  static const routeName = '/';
 
   @override
   _VocabListState createState() => _VocabListState();
@@ -15,17 +17,19 @@ class _VocabListState extends State<VocabList> {
 
   @override
   Widget build(BuildContext context) {
-    final vocabId = ModalRoute.of(context)!.settings.arguments as String;
-    final vocabData =
-        Provider.of<Vocabs>(context, listen: false).findById(vocabId);
+    final vocabData = Provider.of<Vocabs>(context);
 
     return Card(
       margin: const EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           const Divider(),
+          ListView.builder(
+              itemBuilder: (ctx, i) => VocabItem(vocabData.words[i])),
           ListTile(
-            title: Text(vocabData.words.toString()),
+            title: Text(
+              vocabData.words.toString(),
+            ),
             subtitle: const Text('Word Example'),
             tileColor: Colors.white,
             trailing: IconButton(

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
               .copyWith(secondary: Colors.greenAccent),
         ),
-        home: const VocabOverviewScreen(),
+        home: VocabOverviewScreen(),
       ),
     );
   }
