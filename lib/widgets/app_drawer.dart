@@ -12,7 +12,7 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Hello Learner!'),
             automaticallyImplyLeading: false,
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             leading: Icon(
               Icons.speaker_notes,
@@ -21,13 +21,15 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Practice Vocabulary'),
             onTap: () => Navigator.of(context).pushReplacementNamed('/'),
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-              leading: Icon(
-                Icons.work,
-                color: Theme.of(context).primaryColor,
-              ),
-              title: const Text('Learned Vocabulary'))
+            leading: Icon(
+              Icons.work,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: const Text('Learned Vocabulary'),
+            onTap: () => {},
+          )
         ],
       ),
     );

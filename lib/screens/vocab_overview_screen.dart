@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:practice_app_crud/providers/vocabs.dart';
-import 'package:practice_app_crud/widgets/VocabItem.dart';
 import 'package:practice_app_crud/widgets/app_drawer.dart';
-import 'package:practice_app_crud/widgets/vocab_list.dart';
+import 'package:practice_app_crud/widgets/vocab_item.dart';
 import 'package:provider/provider.dart';
 
 class VocabOverviewScreen extends StatelessWidget {

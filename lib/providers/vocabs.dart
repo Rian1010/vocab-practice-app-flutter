@@ -7,19 +7,22 @@ class Vocabs with ChangeNotifier {
       id: 'w1',
       word: 'Hallo!',
       translation: 'Hello!',
-      difficulty: 1,
+      example: 'Hallo, mein Name is Bond, James Bond.',
+      level: 1,
     ),
     Vocab(
       id: 'w2',
       word: 'Wie geht es dir?',
       translation: 'How are you?',
-      difficulty: 2,
+      example: 'Hallo, wie geht es dir?',
+      level: 1,
     ),
     Vocab(
       id: 'w3',
       word: 'Wie',
       translation: 'How',
-      difficulty: 1,
+      example: 'Wie viel kostet dieses Produkt?',
+      level: 1,
     ),
   ];
 
