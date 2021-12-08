@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:practice_app_crud/providers/learned_vocab.dart';
+import 'package:practice_app_crud/widgets/learned_vocab_item.dart';
+import 'package:provider/provider.dart';
 import '../providers/vocab.dart';
 
 class VocabItem extends StatefulWidget {
@@ -55,12 +58,23 @@ class _VocabItemState extends State<VocabItem> {
                   onPressed: () => {
                     setState(() {
                       widget.vocabulary.toggleDoneState();
-                    })
+                    }),
+                    if (widget.vocabulary.isDone)
+                      Provider.of<Learned>(context, listen: false)
+                          .addLearnedWord(
+                        // learnedVoc.learned.values.toList()[i].id,
+                        widget.vocabulary.id,
+                        widget.vocabulary.word,
+                        widget.vocabulary.translation,
+                        widget.vocabulary.level,
+                        widget.vocabulary.example,
+                      ),
                   },
                   icon: const Icon(Icons.done),
-                  color: widget.vocabulary.isDone || widget.vocabulary.isIgnored
-                      ? Colors.blueGrey[200]
-                      : Colors.green,
+                  color:
+                      !widget.vocabulary.isDone || widget.vocabulary.isIgnored
+                          ? Colors.blueGrey[200]
+                          : Colors.green,
                 ),
                 IconButton(
                   onPressed: () => {

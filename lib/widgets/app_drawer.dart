@@ -28,7 +28,8 @@ class AppDrawer extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             title: const Text('Learned Vocabulary'),
-            onTap: () => {},
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed('/learned-vocabulary'),
           )
         ],
       ),

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:practice_app_crud/providers/vocab.dart';
+import 'package:flutter/foundation.dart';
 
 class LearnedVocab {
   final String id;
@@ -18,21 +17,27 @@ class LearnedVocab {
 }
 
 class Learned with ChangeNotifier {
-  List<LearnedVocab> _learned = [];
+  final Map<String, LearnedVocab> _learned = {};
 
-  List<LearnedVocab> get learned {
-    return [..._learned];
+  Map<String, LearnedVocab> get learned {
+    return {..._learned};
   }
 
-  void addLearnedWord(Vocab vocab) {
-    _learned.insert(
-      0,
-      LearnedVocab(
-        id: vocab.id,
-        word: vocab.word,
-        translation: vocab.translation,
-        example: vocab.example,
-        level: vocab.level,
+  void addLearnedWord(
+    String vocabId,
+    String word,
+    String translation,
+    int level,
+    String example,
+  ) {
+    _learned.putIfAbsent(
+      vocabId,
+      () => LearnedVocab(
+        id: vocabId,
+        word: word,
+        translation: translation,
+        example: example,
+        level: level,
       ),
     );
     notifyListeners();
