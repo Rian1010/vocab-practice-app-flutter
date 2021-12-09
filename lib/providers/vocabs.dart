@@ -41,4 +41,9 @@ class Vocabs with ChangeNotifier {
   Vocab findById(String id) {
     return _words.firstWhere((word) => word.id == id);
   }
+
+  void removeFromNewWords(String id) {
+    _words.removeWhere((item) => item.id == id);
+    notifyListeners();
+  }
 }

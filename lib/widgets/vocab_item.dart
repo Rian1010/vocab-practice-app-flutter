@@ -16,27 +16,29 @@ class _VocabItemState extends State<VocabItem> {
   @override
   Widget build(BuildContext context) {
     final learnedWords = Provider.of<Learned>(context, listen: false);
+    final vocabs = Provider.of<Vocabs>(context, listen: false);
     bool _isExpanded = false;
+
     return Consumer<Vocab>(
-      builder: (ctx, vocabs, child) => Card(
+      builder: (ctx, vocab, child) => Card(
         margin: const EdgeInsets.all(10),
         elevation: 7,
-        color: vocabs.isIgnored ? Colors.grey.shade50 : Colors.white,
+        color: vocab.isIgnored ? Colors.grey.shade50 : Colors.white,
         child: Column(
           children: <Widget>[
             ListTile(
               title: Text(
-                vocabs.word,
+                vocab.word,
                 style: TextStyle(
-                  color: vocabs.isIgnored
+                  color: vocab.isIgnored
                       ? Colors.black87.withOpacity(0.35)
                       : Colors.black87,
                 ),
               ),
               subtitle: Text(
-                vocabs.example,
+                vocab.example,
                 style: TextStyle(
-                  color: vocabs.isIgnored
+                  color: vocab.isIgnored
                       ? Colors.black87.withOpacity(0.35)
                       : Colors.black87,
                 ),
@@ -45,46 +47,60 @@ class _VocabItemState extends State<VocabItem> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () => {
-                      vocabs.toggleIgnoreState(),
+                      vocab.toggleIgnoreState(),
                     },
                     icon: const Icon(Icons.remove_red_eye),
-                    color: vocabs.isIgnored ? Colors.grey[350] : Colors.grey,
+                    color: vocab.isIgnored ? Colors.grey[350] : Colors.grey,
                   ),
                   IconButton(
                     onPressed: () => {
-                      vocabs.toggleDoneState(),
-                      if (vocabs.isDone)
+                      vocab.toggleDoneState(),
+                      if (vocab.isDone && !vocab.isIgnored)
                         // Provider.of<Learned>(context, listen: false)
                         //     .addLearnedWord(
                         // learnedVoc.learned.values.toList()[i].id,
                         learnedWords.addLearnedWord(
-                          vocabs.id,
-                          vocabs.word,
-                          vocabs.translation,
-                          vocabs.level,
-                          vocabs.example,
+                          vocab.id,
+                          vocab.word,
+                          vocab.translation,
+                          vocab.level,
+                          vocab.example,
                         ),
+                      if (vocab.isDone && !vocab.isIgnored)
+                        {
+                          vocabs.removeFromNewWords(vocab.id),
+                        },
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text(
+                            'Added to the learned vocabulary list!',
+                          ),
+                          duration: const Duration(seconds: 2),
+                          action: SnackBarAction(
+                            label: 'UNDO',
+                            onPressed: () {},
+                          ),
+                        ),
+                      )
                       // ),
                     },
                     icon: const Icon(Icons.done),
-                    color: !vocabs.isDone || vocabs.isIgnored
-                        ? Colors.blueGrey[200]
-                        : Colors.green,
+                    color:
+                        vocab.isIgnored ? Colors.blueGrey[200] : Colors.green,
                   ),
                   IconButton(
-                    onPressed: () => {
-                      setState(() {
-                        _isExpanded = !_isExpanded;
-                      })
-                    },
-                    icon: _isExpanded
+                    icon: _isExpanded && !vocab.isIgnored && !vocab.isDone
                         ? const Icon(Icons.expand_less)
                         : const Icon(Icons.expand_more),
+                    onPressed: () {
+                      _isExpanded = !_isExpanded;
+                    },
                   ),
                 ],
               ),
             ),
-            if (_isExpanded)
+            if (_isExpanded && !vocab.isIgnored && !vocab.isDone)
               Container(
                 height: 50,
                 padding: const EdgeInsets.symmetric(
@@ -94,8 +110,8 @@ class _VocabItemState extends State<VocabItem> {
                 decoration: BoxDecoration(color: Colors.blue.shade100),
                 child: ListView(
                   children: <Widget>[
-                    Text('Meaning: ${vocabs.translation}'),
-                    Text('Level: ${vocabs.level.toString()}'),
+                    Text('Meaning: ${vocab.translation}'),
+                    Text('Level: ${vocab.level.toString()}'),
                   ],
                 ),
               ),
