@@ -46,4 +46,24 @@ class Vocabs with ChangeNotifier {
     _words.removeWhere((item) => item.id == id);
     notifyListeners();
   }
+
+  void addToNewWords(
+    String id,
+    String word,
+    String translation,
+    String example,
+    int level,
+  ) {
+    _words.insert(
+      0,
+      Vocab(
+        id: id,
+        word: word,
+        translation: translation,
+        example: example,
+        level: level,
+      ),
+    );
+    notifyListeners();
+  }
 }

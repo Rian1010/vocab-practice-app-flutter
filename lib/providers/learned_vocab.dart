@@ -42,4 +42,9 @@ class Learned with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void removeLearnedWord(String id) {
+    _learned.removeWhere((key, value) => key == id && value == id);
+    notifyListeners();
+  }
 }
