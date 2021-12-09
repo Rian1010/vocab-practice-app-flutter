@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:practice_app_crud/providers/learned_vocab.dart';
 import 'package:provider/provider.dart';
 
-class LearnedVocabItem extends StatefulWidget {
-  final LearnedVocab learnedVocab;
+class LearnedVocabItem extends StatelessWidget {
+  final String id;
+  final String word;
+  final String translation;
 
-  LearnedVocabItem(this.learnedVocab);
+  LearnedVocabItem(
+    this.id,
+    this.word,
+    this.translation,
+  );
 
-  @override
-  _LearnedVocabItemState createState() => _LearnedVocabItemState();
-}
-
-class _LearnedVocabItemState extends State<LearnedVocabItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -20,8 +21,8 @@ class _LearnedVocabItemState extends State<LearnedVocabItem> {
       child: Column(
         children: <Widget>[
           ListTile(
-            title: Text(widget.learnedVocab.word),
-            subtitle: Text(widget.learnedVocab.example),
+            title: Text(word),
+            subtitle: Text(translation),
             trailing: Wrap(
               children: [
                 IconButton(

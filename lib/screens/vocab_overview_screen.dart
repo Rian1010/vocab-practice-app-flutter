@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice_app_crud/providers/vocab.dart';
 import 'package:practice_app_crud/providers/vocabs.dart';
 import 'package:practice_app_crud/widgets/app_drawer.dart';
 import 'package:practice_app_crud/widgets/vocab_item.dart';
@@ -15,7 +16,10 @@ class VocabOverviewScreen extends StatelessWidget {
       ),
       drawer: const AppDrawer(),
       body: ListView.builder(
-        itemBuilder: (ctx, i) => VocabItem(vocabData.words[i]),
+        itemBuilder: (ctx, i) => ChangeNotifierProvider<Vocab>.value(
+          value: vocabData.words[i],
+          child: VocabItem(),
+        ),
         itemCount: vocabData.words.length,
       ),
     );

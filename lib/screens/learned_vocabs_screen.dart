@@ -22,7 +22,11 @@ class _LearnedVocabsScreenState extends State<LearnedVocabsScreen> {
       ),
       drawer: const AppDrawer(),
       body: ListView.builder(
-        itemBuilder: (ctx, i) => LearnedVocabItem(learnedWord.learned[i]),
+        itemBuilder: (ctx, i) => LearnedVocabItem(
+          learnedWord.learned.values.toList()[i].id,
+          learnedWord.learned.values.toList()[i].word,
+          learnedWord.learned.values.toList()[i].translation,
+        ),
         itemCount: learnedWord.learned.length,
       ),
     );
